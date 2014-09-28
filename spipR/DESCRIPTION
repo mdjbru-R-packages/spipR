@@ -1,0 +1,14 @@
+Package: spipR
+Encoding: latin1
+Title: R interface to the spip program
+Description: Spip is a software aimed at simulating pedigrees
+    ((https://swfsc.noaa.gov/textblock.aspx?Division=FED&id=3434 and
+    http://onlinelibrary.wiley.com/doi/10.1111/j.1471-8286.2005.00884.x/abstract).
+    This is an interface to be able to run spip and parse its output from R.
+Version: 0.0.0
+Author: Matthieu Bruneaux <mdjbru@utu.fi>
+Maintainer: Matthieu Bruneaux <mdjbru@utu.fi>
+Depends:
+    R (>= 3.0.2)
+License: MIT
+LazyData: true
