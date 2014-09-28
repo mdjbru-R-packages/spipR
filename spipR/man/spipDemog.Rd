@@ -5,7 +5,7 @@
 \usage{
 spipDemog(max_age, number_of_years, survival_probs, fem_asrf, fem_prob_repro,
   initial_females, male_asrp, male_prob_repro, initial_males,
-  fixed_cohort_size = TRUE, cohort_size, file = "",
+  fixed_cohort_size = TRUE, cohort_size, file,
   comment = "Generated using spipR")
 }
 \arguments{

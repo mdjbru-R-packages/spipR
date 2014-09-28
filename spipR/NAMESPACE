@@ -2,3 +2,4 @@
 
 export(spipDemog)
 export(spipGtyp)
+export(spipLocpars)

@@ -100,7 +100,7 @@ spipDemog = function(max_age,
   initial_males,
   fixed_cohort_size = TRUE,
   cohort_size,
-  file = "",
+  file,
   comment = "Generated using spipR") {
 
   # prepare the file
@@ -143,7 +143,8 @@ spipDemog = function(max_age,
   m[["cohort_size"]] = cohort_size
   m[["file"]] = file
   m[["comment"]] = comment
-
+  m[["demog"]] = o
+  
   # return
   return(m)
 }

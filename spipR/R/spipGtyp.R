@@ -1,6 +1,6 @@
 #' @title Write a genotype file for Spip
 #'
-#' @description Write a demography input file for Spip. Most of the parameter
+#' @description Write a genotype input file for Spip. Most of the parameter
 #'   descriptions come from \code{spip_man_page.pdf}.
 #'
 #' @param locus_file pathname to file with locus information
@@ -68,7 +68,8 @@ spipGtyp = function(locus_file,
   m[["locus_file"]] = locus_file
   m[["discard_parents"]] = discard_parents
   m[["gtyps_for_all"]] = gtyps_for_all
-
+  m[["gtyp"]] = o
+  
   # return
   return(m)  
 }

@@ -45,7 +45,7 @@ compatible with string conversion.}
 A list with the parameters
 }
 \description{
-Write a demography input file for Spip. Most of the parameter
+Write a genotype input file for Spip. Most of the parameter
   descriptions come from \code{spip_man_page.pdf}.
 }
 \examples{
