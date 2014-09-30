@@ -47,5 +47,32 @@ a = spipRunSim(ref_genotypes = genotypes,
   cohort_size = 500,
   discard_parents = 4,
   gtyps_for_all = 50)
+
+# generate many simulations
+n = as.list(1:100)
+sims = lapply(n, function(x) {
+  spipRunSim(ref_genotypes = genotypes,
+             max_age = 4,
+             number_of_years = 50,
+             survival_probs = c(0.2, 0.3, 0.5, 0.2),
+             fem_asrf = c(0, 0.2, 1, 0.8),
+             fem_prob_repro = c(0, 0.2, 0.5, 0.3),
+             initial_females = c(500, 300, 40, 20),
+             male_asrp = c(0, 0.3, 1, 1),
+             male_prob_repro = c(0, 0.2, 0.5, 0.3),
+             initial_males = c(500, 300, 40, 20),
+             fixed_cohort_size = T,
+             cohort_size = 500,
+             discard_parents = 4,
+             gtyps_for_all = 50)
+})
+# check their random seeds
+seeds = lapply(sims, function(x) {
+   c = grepl("RAND", x$output)
+ return(x$output[c])
+})
+
+# This shows that the seeds are the same for runs performed during a single
+# second.
 }
 

@@ -38,6 +38,33 @@
 #'   discard_parents = 4,
 #'   gtyps_for_all = 50)
 #'
+#' # generate many simulations
+#' n = as.list(1:100)
+#' sims = lapply(n, function(x) {
+#'   spipRunSim(ref_genotypes = genotypes,
+#'              max_age = 4,
+#'              number_of_years = 50,
+#'              survival_probs = c(0.2, 0.3, 0.5, 0.2),
+#'              fem_asrf = c(0, 0.2, 1, 0.8),
+#'              fem_prob_repro = c(0, 0.2, 0.5, 0.3),
+#'              initial_females = c(500, 300, 40, 20),
+#'              male_asrp = c(0, 0.3, 1, 1),
+#'              male_prob_repro = c(0, 0.2, 0.5, 0.3),
+#'              initial_males = c(500, 300, 40, 20),
+#'              fixed_cohort_size = T,
+#'              cohort_size = 500,
+#'              discard_parents = 4,
+#'              gtyps_for_all = 50)
+#' })
+#' # check their random seeds
+#' seeds = lapply(sims, function(x) {
+#'    c = grepl("RAND", x$output)
+#'  return(x$output[c])
+#' })
+#'
+#' # This shows that the seeds are the same for runs performed during a single
+#' # second.
+#'
 #' @export
 #'
 
@@ -83,14 +110,17 @@ spipRunSim = function(ref_genotypes,
            gtyps_for_all = gtyps_for_all,
            file = paste0(f, ".gtyp"))
   # run
+  file.remove("spip_seeds")
+  warning("\"spip_seeds\" was removed (if any file like this existed). This means Spip will use the clock to initialize the seeds. This might cause problems if Spip is run simultaneously or in a very short time (similar seeds between simulations).")
   c = paste("spip", "--command-file", paste0(f, ".demog"),
     "--command-file", paste0(f, ".gtyp"))
   print(c)
   output = system(c, intern = TRUE)
+  file.remove("spip_seeds")
   
   # delete files
   for (e in c(".locpars", ".demog", ".gtyp")) {
-    #file.remove(paste0(f, e))
+    file.remove(paste0(f, e))
   }
   
   # return result
