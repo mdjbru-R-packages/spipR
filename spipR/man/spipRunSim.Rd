@@ -5,12 +5,16 @@
 \usage{
 spipRunSim(ref_genotypes, max_age, number_of_years, survival_probs, fem_asrf,
   fem_prob_repro, initial_females, male_asrp, male_prob_repro, initial_males,
-  fixed_cohort_size = TRUE, cohort_size, discard_parents, gtyps_for_all)
+  fixed_cohort_size = TRUE, cohort_size, discard_parents, gtyps_for_all,
+  sleep_time = 3)
 }
 \arguments{
 \item{ref_genotypes}{Used for allele frequencies. A data frame with
-  columns working by pairs. Every successive pair of columns represents the
-  alleles for one locus. Rows are individuals.}
+columns working by pairs. Every successive pair of columns represents the
+alleles for one locus. Rows are individuals.}
+
+\item{sleep_time}{sleep time at the end of a Spip run. In order to ensure
+  different seeds between runs, it should be greater or equal to 3.}
 }
 \value{
 The input parameters and the output from Spip
@@ -49,7 +53,7 @@ a = spipRunSim(ref_genotypes = genotypes,
   gtyps_for_all = 50)
 
 # generate many simulations
-n = as.list(1:100)
+n = as.list(1:10)
 sims = lapply(n, function(x) {
   spipRunSim(ref_genotypes = genotypes,
              max_age = 4,
@@ -64,13 +68,14 @@ sims = lapply(n, function(x) {
              fixed_cohort_size = T,
              cohort_size = 500,
              discard_parents = 4,
-             gtyps_for_all = 50)
+             gtyps_for_all = 50,
+             sleep_time = 0)
 })
 # check their random seeds
-seeds = lapply(sims, function(x) {
+seeds = unlist(lapply(sims, function(x) {
    c = grepl("RAND", x$output)
- return(x$output[c])
-})
+ return(x$output[c][1])
+}))
 
 # This shows that the seeds are the same for runs performed during a single
 # second.
