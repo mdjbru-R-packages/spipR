@@ -110,13 +110,43 @@ spipRunSim = function(ref_genotypes,
            gtyps_for_all = gtyps_for_all,
            file = paste0(f, ".gtyp"))
   # run
-  file.remove("spip_seeds")
-  warning("\"spip_seeds\" was removed (if any file like this existed). This means Spip will use the clock to initialize the seeds. This might cause problems if Spip is run simultaneously or in a very short time (similar seeds between simulations).")
+  #warning("\"spip_seeds\" was removed (if any file like this existed). This means Spip will use the clock to initialize the seeds. This might cause problems if Spip is run simultaneously or in a very short time (similar seeds between simulations).")
   c = paste("spip", "--command-file", paste0(f, ".demog"),
     "--command-file", paste0(f, ".gtyp"))
   print(c)
   output = system(c, intern = TRUE)
-  file.remove("spip_seeds")
+
+  # check the seeds
+  if (sum(grepl("Using clock to set RNG", output)) == 1) {
+    # the clock was used, get those values for the next one
+    seeds = output[grepl("Using clock to set RNG", output)]
+    seeds = strsplit(seeds, split = "Using clock to set RNG: ")[[1]][2]
+    seeds = as.numeric(strsplit(seeds, " ")[[1]])
+    seeds = seeds + 1
+    seeds[1] = seeds[1] + floor((10 ** sample(2:6, 1)) * runif(1))
+    seeds = as.character(seeds)
+    seeds = paste(seeds, collapse = " ")
+    fseeds = file("spip_seeds", "w")
+    cat(seeds, file = fseeds)
+    close(fseeds)
+    #warning(paste0("\"spip_seeds\" overwritten with ", seeds))
+  } else {
+    stopifnot(sum(grepl("Using contents of spip_seeds to set RNG",
+                        output)) == 1)
+    # the spip_seeds file was used
+    seeds = output[grepl("Using contents of spip_seeds to set RNG", output)]
+    seeds = strsplit(seeds,
+      split = "Using contents of spip_seeds to set RNG: ")[[1]][2]
+    seeds = as.numeric(strsplit(seeds, " ")[[1]])
+    seeds = seeds + 1
+    seeds[1] = seeds[1] + floor((10 ** sample(2:6, 1)) * runif(1))
+    seeds = as.character(seeds)
+    seeds = paste(seeds, collapse = " ")
+    fseeds = file("spip_seeds", "w")
+    cat(seeds, file = fseeds)
+    close(fseeds)
+    #warning(paste0("\"spip_seeds\" overwritten with ", seeds))    
+  }
   
   # delete files
   for (e in c(".locpars", ".demog", ".gtyp")) {
