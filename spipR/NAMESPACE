@@ -3,3 +3,4 @@
 export(spipDemog)
 export(spipGtyp)
 export(spipLocpars)
+export(spipRunSim)

@@ -141,8 +141,8 @@ spipDemog = function(max_age,
   m[["number_of_years"]] = number_of_years
   m[["fixed_cohort_size"]] = fixed_cohort_size
   m[["cohort_size"]] = cohort_size
-  m[["file"]] = file
-  m[["comment"]] = comment
+  m[["demog_file"]] = file
+  m[["demog_comment"]] = comment
   m[["demog"]] = o
   
   # return

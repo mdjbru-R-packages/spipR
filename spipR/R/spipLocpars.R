@@ -70,8 +70,8 @@ spipLocpars = function(genotypes,
   # data summary
   m = list()
   m[["genotypes"]] = genotypes
-  m[["file"]] = file
-  m[["comment"]] = comment
+  m[["locpars_file"]] = file
+  m[["locpars_comment"]] = comment
   m[["locpars"]] = o
   
   # return

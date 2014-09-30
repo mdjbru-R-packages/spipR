@@ -68,6 +68,8 @@ spipGtyp = function(locus_file,
   m[["locus_file"]] = locus_file
   m[["discard_parents"]] = discard_parents
   m[["gtyps_for_all"]] = gtyps_for_all
+  m[["gtyp_file"]] = file
+  m[["gtyp_comment"]] = comment
   m[["gtyp"]] = o
   
   # return
