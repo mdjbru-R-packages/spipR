@@ -121,7 +121,7 @@ spipRunSim = function(ref_genotypes,
   print(c)
   output = system(c, intern = TRUE)
   file.remove("spip_seeds")
-  # wait 2 sec to ensure that the clock seeds will be different
+  # wait sleep_time (e.g. 3s to ensure that the clock seeds will be different)
   Sys.sleep(sleep_time)
   
   # delete files
